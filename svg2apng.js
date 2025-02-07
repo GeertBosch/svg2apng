@@ -31,7 +31,7 @@ const absoluteFilePath = path.resolve(filePath);
 
   try {
     // Assemble PNG frames into an APNG
-    execSync('apngasm output.apng frame-*.png');
+    execSync('apngasm --force -o output.apng frame-*.png');
     console.log('APNG created successfully: output.apng');
   } catch (error) {
     console.error('Error creating APNG:', error.message);
