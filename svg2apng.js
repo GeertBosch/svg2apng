@@ -21,17 +21,28 @@ const absoluteFilePath = path.resolve(filePath);
   const delay = 100; // Delay between frames in milliseconds
 
   for (let i = 0; i < frames; i++) {
-    await page.screenshot({ path: `frame-${i}.png` });
+    const framePath = `frame-${i}.png`;
+    await page.screenshot({ path: framePath });
+    console.log(`Captured ${framePath}`);
     await page.evaluate((delay) => new Promise(resolve => setTimeout(resolve, delay)), delay);
   }
 
   await browser.close();
 
-  // Assemble PNG frames into an APNG
-  execSync('apngasm output.apng frame-*.png');
+  try {
+    // Assemble PNG frames into an APNG
+    execSync('apngasm output.apng frame-*.png');
+    console.log('APNG created successfully: output.apng');
+  } catch (error) {
+    console.error('Error creating APNG:', error.message);
+  }
 
   // Clean up frame files
   for (let i = 0; i < frames; i++) {
-    fs.unlinkSync(`frame-${i}.png`);
+    const framePath = `frame-${i}.png`;
+    if (fs.existsSync(framePath)) {
+      fs.unlinkSync(framePath);
+      console.log(`Deleted ${framePath}`);
+    }
   }
 })();
