@@ -5,7 +5,7 @@ const { execSync } = require('child_process');
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.goto('file:///path/to/your/animated.svg');
+  await page.goto('file:///Users/bosch/chessfun/chessboard.svg');
 
   const frames = 10; // Number of frames to capture
   const delay = 100; // Delay between frames in milliseconds
