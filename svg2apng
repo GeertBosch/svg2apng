@@ -7,11 +7,12 @@ const path = require('path');
 const { program } = require('commander');
 
 program
+  .argument('<filePath>', 'path to the SVG file')
   .option('-o, --output <output>', 'output file name')
   .parse(process.argv);
 
 const filePath = program.args[0];
-const outputFileName = program.output || 'output.apng';
+const outputFileName = program.opts().output || 'output.apng';
 
 if (!filePath) {
   console.error('Please provide the path to the SVG file as an argument.');
