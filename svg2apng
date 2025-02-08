@@ -11,11 +11,13 @@ program
   .option('-o, --output <output>', 'output file name')
   .option('-d, --delay <delay>', 'delay between frames in milliseconds', '100')
   .option('-c, --count <count>', 'number of frames to capture', '10')
+  .option('-l, --loops <loops>', 'number of repeats, 0 means repeat indefinitely', '1')
   .parse(process.argv);
 
 const filePath = program.args[0];
 const delay = parseInt(program.opts().delay, 10);
 const frames = parseInt(program.opts().count, 10);
+const loops = parseInt(program.opts().loops, 10);
 
 if (!filePath) {
   console.error('Please provide the path to the SVG file as an argument.');
@@ -39,7 +41,7 @@ const outputFileName = program.opts().output || defaultOutputFileName;
     await nextFrameDelay;
   }
 
-  execSync(`apngasm --force -o ${outputFileName} -d ${delay} frame-*.png`);
+  execSync(`apngasm --force -o ${outputFileName} -d ${delay} -l ${loops} frame-*.png`);
   console.log(`APNG file created: ${outputFileName}`);
 
   // Remove frame-*.png files
