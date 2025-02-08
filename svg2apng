@@ -31,9 +31,11 @@ const absoluteFilePath = path.resolve(filePath);
   await page.goto(`file://${absoluteFilePath}`);
 
   for (let i = 0; i < frames; i++) {
+    // Try to capture the frame every `delay` milliseconds regardless of how long it takes to render
+    let nextFrameDelay = new Promise(resolve => setTimeout(resolve, delay));
     const framePath = `frame-${i}.png`;
     await page.screenshot({ path: framePath });
-    await new Promise(resolve => setTimeout(resolve, delay));
+    await nextFrameDelay;
   }
 
   execSync(`apngasm --force -o ${outputFileName} -d ${delay} frame-*.png`);
