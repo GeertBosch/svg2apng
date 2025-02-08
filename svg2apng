@@ -10,11 +10,13 @@ program
   .argument('<filePath>', 'path to the SVG file')
   .option('-o, --output <output>', 'output file name')
   .option('-d, --delay <delay>', 'delay between frames in milliseconds', '100')
+  .option('-c, --count <count>', 'number of frames to capture', '10')
   .parse(process.argv);
 
 const filePath = program.args[0];
 const outputFileName = program.opts().output || 'output.apng';
 const delay = parseInt(program.opts().delay, 10);
+const frames = parseInt(program.opts().count, 10);
 
 if (!filePath) {
   console.error('Please provide the path to the SVG file as an argument.');
@@ -27,8 +29,6 @@ const absoluteFilePath = path.resolve(filePath);
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto(`file://${absoluteFilePath}`);
-
-  const frames = 10; // Number of frames to capture
 
   for (let i = 0; i < frames; i++) {
     const framePath = `frame-${i}.png`;
