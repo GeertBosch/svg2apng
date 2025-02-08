@@ -7,6 +7,7 @@ const path = require('path');
 const { program } = require('commander');
 
 program
+  .version('0.1')
   .argument('<filePath>', 'path to the SVG file')
   .option('-o, --output <output>', 'output file name')
   .option('-d, --delay <delay>', 'delay between frames in milliseconds', '100')
