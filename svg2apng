@@ -38,5 +38,11 @@ const absoluteFilePath = path.resolve(filePath);
   execSync(`apngasm --force -o ${outputFileName} frame-*.png`);
   console.log(`APNG file created: ${outputFileName}`);
 
+  // Remove frame-*.png files
+  for (let i = 0; i < frames; i++) {
+    const framePath = `frame-${i}.png`;
+    fs.unlinkSync(framePath);
+  }
+
   await browser.close();
 })();
