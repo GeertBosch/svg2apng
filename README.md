@@ -6,8 +6,12 @@ This tool converts an SVG file to an animated PNG (APNG) file using Puppeteer an
 
 ### Prerequisites
 
-- Node.js (https://nodejs.org/)
+- `node` (https://nodejs.org/)
 - `apngasm` (https://github.com/apngasm/apngasm)
+
+On MacOS, you can install these with:
+
+    brew install node apngasm
 
 ### Install Node.js Modules
 
