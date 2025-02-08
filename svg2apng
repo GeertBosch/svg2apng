@@ -14,7 +14,6 @@ program
   .parse(process.argv);
 
 const filePath = program.args[0];
-const outputFileName = program.opts().output || 'output.apng';
 const delay = parseInt(program.opts().delay, 10);
 const frames = parseInt(program.opts().count, 10);
 
@@ -24,6 +23,8 @@ if (!filePath) {
 }
 
 const absoluteFilePath = path.resolve(filePath);
+const defaultOutputFileName = path.basename(filePath, path.extname(filePath)) + '.apng';
+const outputFileName = program.opts().output || defaultOutputFileName;
 
 (async () => {
   const browser = await puppeteer.launch();
